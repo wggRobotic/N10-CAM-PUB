@@ -14,9 +14,9 @@ int main(int argc, char **argv)
 {
   rclcpp::init(argc, argv);
   rclcpp::NodeOptions options;
-  rclcpp::Node::SharedPtr node = rclcpp::Node::make_shared("n10_cam_pub_node", options);
+  rclcpp::Node::SharedPtr node = rclcpp::Node::make_shared("n10_cam_pub", options);
   image_transport::ImageTransport it(node);
-  image_transport::Publisher pub = it.advertise("/n10/cam_pub", 1);
+  image_transport::Publisher pub = it.advertise("/n10/rear/color", 1);
 
   cv::VideoCapture cap(0);
   if (!cap.isOpened())
