@@ -35,7 +35,7 @@ public:
 
     // Create a timer to publish images
     timer_ = this->create_wall_timer(
-        5ms, std::bind(&CamPublisher::publish_image, this));
+        15ms, std::bind(&CamPublisher::publish_image, this));
   }
 private:
   void publish_image()
