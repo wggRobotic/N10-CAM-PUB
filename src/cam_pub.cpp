@@ -10,9 +10,10 @@ using namespace std::chrono_literals;
 class CamPublisher : public rclcpp::Node
 {
 public:
-  CamPublisher() : Node("cam_publisher"){};
+  CamPublisher() : Node("cam_publisher"){}
 
-  void init(image_transport::ImageTransport &it_){
+  void init(image_transport::ImageTransport &it_)
+  {
     // Declare parameters
     this->declare_parameter<std::string>("topic_name", "/n10/rear/color");
     this->declare_parameter<std::string>("camera_name", "video0");
@@ -35,8 +36,9 @@ public:
 
     // Create a timer to publish images
     timer_ = this->create_wall_timer(
-        15ms, std::bind(&CamPublisher::publish_image, this));
+        33ms, std::bind(&CamPublisher::publish_image, this)); // Changed from 15ms to 33ms
   }
+
 private:
   void publish_image()
   {
@@ -47,7 +49,6 @@ private:
     {
       auto msg = cv_bridge::CvImage(std_msgs::msg::Header(), "bgr8", frame).toImageMsg();
       pub_.publish(msg);
-      cv::waitKey(1);
     }
   }
 
