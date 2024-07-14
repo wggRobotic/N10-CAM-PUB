@@ -13,9 +13,7 @@ class CamPublisher : public rclcpp::Node
 {
 public:
   CamPublisher() : Node("cam_publisher"), stop_thread_(false)
-  {
-    init(it_);
-  }
+  {}
 
   ~CamPublisher()
   {
@@ -84,13 +82,14 @@ private:
   std::mutex pub_mutex_;
   std::string topic_name_;
   std::string camera_name_;
-  image_transport::ImageTransport it_;
 };
 
 int main(int argc, char **argv)
 {
   rclcpp::init(argc, argv);
   auto node = std::make_shared<CamPublisher>();
+  image_transport::ImageTransport it_(node);
+  node->init(it_);
   rclcpp::spin(node);
   rclcpp::shutdown();
   return 0;
